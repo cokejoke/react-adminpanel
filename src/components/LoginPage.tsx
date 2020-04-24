@@ -9,7 +9,8 @@ import background from "../resources/login.jpg";
 const styles = (theme: Theme) =>
   createStyles({
     root: {
-      flexGrow: 1
+      flexGrow: 1,
+      backgroundColor: theme.palette.background.default
     },
     background: {
       backgroundSize: "cover",
@@ -23,7 +24,7 @@ const styles = (theme: Theme) =>
     },
     heading: {
       marginBottom: "40px",
-      color: indigo["500"]
+      color: theme.palette.primary.main
     }
   });
 
@@ -35,6 +36,7 @@ class LoginPage extends React.Component<Props> {
   private store = new LoginStore();
 
   public render() {
+    console.log(localStorage.getItem("theme"));
     return (
       <div className={this.props.classes.root}>
         <Grid container spacing={0}>

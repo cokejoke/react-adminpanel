@@ -33,7 +33,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    setTimeout(() => document.body.style.cssText = 'transition: ease-in-out background-color 0.2s !important;', 1000);
+    setTimeout(() => document.body.style.cssText = 'transition: ease-in-out background-color 0.2s !important;', 2000);
   }
 
   render() {

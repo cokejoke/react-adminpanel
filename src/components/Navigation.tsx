@@ -116,7 +116,6 @@ class Navigation extends React.Component<Props> {
 
     private toggleTheme(): void {
         let theme: ThemeType = StoreHolder.themeStore.getType === "light" ? "dark" : "light";
-        console.log(theme);
         localStorage.setItem("theme", theme);
         StoreHolder.themeStore.setType = theme;
     }
