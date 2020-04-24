@@ -8,8 +8,8 @@ export default class DrawerStore {
   set setOpen(open: boolean) { this.open = open; }
 
   @observable
-  private name: String = "";
-  @computed get getName(): String { return this.name; }
-  set setName(name: String) { this.name = name; }
+  private name: string = "";
+  @computed get getName(): string { return this.name; }
+  set setName(name: string) { this.name = name; }
   
 }

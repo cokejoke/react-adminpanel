@@ -2,6 +2,7 @@ import React from "react";
 import Navigation from "./Navigation";
 import { StoreHolder } from "../store/StoreHolder";
 import { WithStyles, Theme, withStyles, createStyles, Typography, Grid } from "@material-ui/core";
+import EnhancedTable from "./SortableTable";
 
 export const styles = (theme: Theme) =>
     createStyles({
@@ -9,18 +10,18 @@ export const styles = (theme: Theme) =>
 
 export type Props = WithStyles;
 
-class DashboardPage extends React.Component<Props> {
+class UsersPage extends React.Component<Props> {
 
     public render() {
         StoreHolder.drawerStore.setName = "Dashboard";
         return (
             <div>
                 <Navigation>
-                    <Typography variant="h1">TEST2</Typography>
+                    <EnhancedTable />
                 </Navigation>
             </div>
         );
     }
 }
 
-export default withStyles(styles)(DashboardPage);
+export default withStyles(styles)(UsersPage);

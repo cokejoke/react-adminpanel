@@ -47,7 +47,7 @@ class LoginPage extends React.Component<Props> {
                   <br /><br />
                   <TextField id="outlined-basic" fullWidth={true} type="password" label="Password" variant="outlined" onChange={e => this.onPasswordChanged(e.target.value)} />
                   <br /><br />
-                  <Button type="submit" variant="contained" color="primary" onClick={this.signIn}>Sign in</Button>
+                  <Button type="submit" variant="contained" color="primary">Sign in</Button>
                   {this.store.getLoading && <CircularProgress size={24} />}
                 </form>
               </Grid>

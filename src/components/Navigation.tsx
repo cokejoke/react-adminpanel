@@ -16,10 +16,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SettingIcon from '@material-ui/icons/Settings';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import UsersIcon from '@material-ui/icons/Group';
 import LogOutIcon from '@material-ui/icons/ExitToApp';
 import clsx from 'clsx';
 import { AlertService } from '../services/AlertService';
-import { WithStyles, withStyles, Theme, createStyles, useMediaQuery } from '@material-ui/core';
+import { WithStyles, withStyles, Theme, createStyles, useMediaQuery, Grid } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import { StoreHolder } from '../store/StoreHolder';
 import { history } from '../helpers/Helpers';
@@ -78,6 +79,7 @@ export const styles = (theme: Theme) =>
         },
         toolbar: {
             display: 'flex',
+            width: "100% !important",
             alignItems: 'center',
             justifyContent: 'flex-end',
             padding: theme.spacing(0, 1),
@@ -95,7 +97,7 @@ export const styles = (theme: Theme) =>
             },
         },
         themeToggle: {
-            float: "right"   
+            marginLeft: "auto"
         }
     });
 
@@ -114,6 +116,7 @@ class Navigation extends React.Component<Props> {
 
     private toggleTheme(): void {
         let theme: ThemeType = StoreHolder.themeStore.getType === "light" ? "dark" : "light";
+        console.log(theme);
         localStorage.setItem("theme", theme);
         StoreHolder.themeStore.setType = theme;
     }
@@ -180,9 +183,9 @@ class Navigation extends React.Component<Props> {
                             <ListItemIcon><DashboardIcon /></ListItemIcon>
                             <ListItemText primary="Dashboard" />
                         </ListItem>
-                        <ListItem className={this.props.classes.listItem} button key="Page2">
-                            <ListItemIcon><LogOutIcon /></ListItemIcon>
-                            <ListItemText primary="Page2" />
+                        <ListItem className={this.props.classes.listItem} onClick={e => this.changePage("/users")} button key="Users">
+                            <ListItemIcon><UsersIcon /></ListItemIcon>
+                            <ListItemText primary="Users" />
                         </ListItem>
                     </List>
                     <Divider />
@@ -197,6 +200,15 @@ class Navigation extends React.Component<Props> {
                         </ListItem>
                     </List>
                 </Drawer>
+                <main className={this.props.classes.content}>
+                    <div className={this.props.classes.toolbar} />
+                    <Grid container>
+                        <Grid item xs={2}></Grid>
+                        <Grid item xs={8}>
+                            {this.props.children}
+                        </Grid>
+                    </Grid>
+                </main>
             </div>
         );
     }

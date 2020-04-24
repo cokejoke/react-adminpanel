@@ -14,8 +14,8 @@ export default class AlertStore {
   set setType(type: "success" | "info" | "warning" | "error" | undefined) { this.type = type; }
 
   @observable
-  private message: String = "";
-  @computed get getMessage(): String { return this.message; }
-  set setMessage(message: String) { this.message = message; }
+  private message: string = "";
+  @computed get getMessage(): string { return this.message; }
+  set setMessage(message: string) { this.message = message; }
 
 }

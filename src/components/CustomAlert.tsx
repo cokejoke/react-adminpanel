@@ -9,9 +9,9 @@ import { StoreHolder } from "../store/StoreHolder";
 export default class CustomAlert extends React.Component {
 
     private handleClose(event?: React.SyntheticEvent, reason?: string) {
-        if (reason === 'clickaway') {
+        /*if (reason === 'clickaway') {
             return;
-        }
+        }*/
         StoreHolder.alertStore.setOpen = false;
     }
 

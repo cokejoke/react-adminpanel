@@ -6,8 +6,11 @@ import { history } from "../helpers/Helpers";
 import { AlertService } from "./AlertService";
 
 export class LocalUserService implements UserService {
+    getUsers(page: number, pageSize: number): Promise<User[]> {
+        throw new Error("Method not implemented.");
+    }
 
-    login(name: String, password: String): void {
+    login(name: string, password: string): void {
         localStorage.setItem("user", "test");
         history.push("/");
         AlertService.create("success", "Successfully logged in!");
