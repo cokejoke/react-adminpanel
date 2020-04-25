@@ -45,6 +45,7 @@
     ]
   },
   "devDependencies": {
-    "@types/autobind-decorator": "^2.1.0"
+    "@types/autobind-decorator": "^2.1.0",
+    "eslint": "^6.8.0"
   }
 }
