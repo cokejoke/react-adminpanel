@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "./logo.svg";
 import {} from "mobx";
 import { observer } from "mobx-react";
 import {
@@ -22,7 +21,7 @@ import {
   LoginPage,
   UsersPage,
 } from "./components";
-import { indigo, deepPurple } from "@material-ui/core/colors";
+import { deepPurple } from "@material-ui/core/colors";
 
 @observer
 class App extends React.Component {

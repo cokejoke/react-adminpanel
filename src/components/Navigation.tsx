@@ -19,13 +19,11 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import UsersIcon from "@material-ui/icons/Group";
 import LogOutIcon from "@material-ui/icons/ExitToApp";
 import clsx from "clsx";
-import { AlertService } from "../services/AlertService";
 import {
   WithStyles,
   withStyles,
   Theme,
   createStyles,
-  useMediaQuery,
   Grid,
 } from "@material-ui/core";
 import { observer } from "mobx-react";
@@ -264,4 +262,3 @@ class Navigation extends React.Component<Props> {
 }
 
 export default withStyles(styles)(Navigation);
-

@@ -12,7 +12,6 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-import { StoreHolder } from "../store/StoreHolder";
 import SettingsStore from "../store/SettingsStore";
 import { observer } from "mobx-react";
 
