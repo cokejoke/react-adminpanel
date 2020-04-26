@@ -15,15 +15,15 @@ export default class ThemeStore {
     color: this.getLocalColor(),
   };
 
-  getLocalColor(): any {
-    if (localStorage.getItem("color") == null) {
-      return deepPurple;
+  getLocalColor(): string {
+    let color: string | null = localStorage.getItem("color");
+    if (!color) {
+      return deepPurple[500];
     } else {
-      return localStorage.getItem("color");
+      return color;
     }
   }
 
-  @computed
   get getType(): ThemeType {
     return this.theme.type;
   }
@@ -32,12 +32,11 @@ export default class ThemeStore {
     this.theme.type = type;
   }
 
-  @computed
-  get getColor(): any {
+  get getColor(): string {
     return this.theme.color;
   }
 
-  set setColor(color: any) {
+  set setColor(color: string) {
     this.theme.color = color;
   }
 }

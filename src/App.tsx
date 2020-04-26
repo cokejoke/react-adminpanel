@@ -20,6 +20,7 @@ import {
   LoginPage,
   UsersPage,
 } from "./components";
+import { deepPurple } from "@material-ui/core/colors";
 
 @observer
 class App extends React.Component {
@@ -39,8 +40,12 @@ class App extends React.Component {
   render() {
     let theme: ThemeOptions = {
       palette: {
-        primary: StoreHolder.themeStore.getColor,
-        secondary: StoreHolder.themeStore.getColor,
+        primary: {
+          main: StoreHolder.themeStore.getColor
+        },
+        secondary: {
+          main: StoreHolder.themeStore.getColor
+        },
         type: StoreHolder.themeStore.getType,
       },
     };
