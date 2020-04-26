@@ -28,6 +28,19 @@ class App extends React.Component {
     history.listen(() => {});
   }
 
+  theme: ThemeOptions = {
+    palette: {
+      primary: {
+        main: StoreHolder.themeStore.getColor
+      },
+      secondary: {
+        main: StoreHolder.themeStore.getColor
+      },
+      type: StoreHolder.themeStore.getType,
+    },
+  };
+  muiTheme: Theme = createMuiTheme(this.theme);
+
   componentDidMount() {
     setTimeout(
       () =>
@@ -38,20 +51,8 @@ class App extends React.Component {
   }
 
   render() {
-    let theme: ThemeOptions = {
-      palette: {
-        primary: {
-          main: StoreHolder.themeStore.getColor
-        },
-        secondary: {
-          main: StoreHolder.themeStore.getColor
-        },
-        type: StoreHolder.themeStore.getType,
-      },
-    };
-    let muiTheme: Theme = createMuiTheme(theme);
     return (
-      <MuiThemeProvider theme={muiTheme}>
+      <MuiThemeProvider theme={this.muiTheme}>
         <CustomAlert></CustomAlert>
         <Router history={history}>
           <Switch>
