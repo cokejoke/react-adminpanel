@@ -11,6 +11,7 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { CirclePicker } from "react-color";
 
 import SettingsStore from "../store/SettingsStore";
 import { observer } from "mobx-react";
@@ -42,6 +43,8 @@ class SettingsPage extends React.Component<Props> {
     StoreHolder.drawerStore.setName = "Settings";
   }
 
+  handleColorChange = ({ hex }) => console.log(hex);
+
   public render() {
     const handleChange = (panel: string) => (
       event: React.ChangeEvent<{}>,
@@ -67,6 +70,7 @@ class SettingsPage extends React.Component<Props> {
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
                 <Typography>Change Color</Typography>
+                <CirclePicker onChangeComplete={handleColorChange} />
               </ExpansionPanelDetails>
             </ExpansionPanel>
           </main>

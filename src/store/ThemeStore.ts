@@ -12,10 +12,10 @@ export default class ThemeStore {
   @observable
   private theme: Theme = {
     type: localStorage.getItem("theme") === "dark" ? "dark" : "light",
-    color: this.getLocalTheme(),
+    color: this.getLocalColor(),
   };
 
-  getLocalTheme(): any {
+  getLocalColor(): any {
     if (localStorage.getItem("color") == null) {
       return deepPurple;
     } else {

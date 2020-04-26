@@ -13,7 +13,6 @@ import { Router, Route, Switch, Redirect } from "react-router-dom";
 import { history } from "./helpers/Helpers";
 import CustomAlert from "./components/CustomAlert";
 import { StoreHolder } from "./store/StoreHolder";
-import { ThemeType } from "./store/ThemeStore";
 import {
   PrivateRoute,
   SettingsPage,
