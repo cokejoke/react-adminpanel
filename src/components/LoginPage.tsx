@@ -36,7 +36,6 @@ class LoginPage extends React.Component<Props> {
   private store = new LoginStore();
 
   public render() {
-    console.log(localStorage.getItem("theme"));
     return (
       <div className={this.props.classes.root}>
         <Grid container spacing={0}>

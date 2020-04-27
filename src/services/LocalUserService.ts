@@ -6,7 +6,7 @@ import { history } from "../helpers/Helpers";
 import { AlertService } from "./AlertService";
 
 export class LocalUserService implements UserService {
-    getUsers(page: number, pageSize: number): Promise<User[]> {
+    async getUsers(page: number, pageSize: number, query?: string): Promise<{ total: number; data: User[] }> {
         throw new Error("Method not implemented.");
     }
 

@@ -1,27 +1,68 @@
-import React from "react";
-import Navigation from "./Navigation";
-import { StoreHolder } from "../store/StoreHolder";
-import { WithStyles, Theme, withStyles, createStyles, Typography, Grid } from "@material-ui/core";
-import EnhancedTable from "./SortableTable";
+import {
+  createStyles, Theme, WithStyles,
 
-export const styles = (theme: Theme) =>
-    createStyles({
-    });
+  withStyles
+} from "@material-ui/core";
+import React from "react";
+import Table from "../@rootsher/material-table/src/Table";
+import { Query } from "../@rootsher/material-table/src/types";
+import { User } from "../dto/User";
+import { ServiceHolder } from "../services/ServiceHolder";
+import { StoreHolder } from "../store/StoreHolder";
+import Navigation from "./Navigation";
+
+export const styles = (theme: Theme) => createStyles({});
 
 export type Props = WithStyles;
 
 class UsersPage extends React.Component<Props> {
-
-    public render() {
-        StoreHolder.drawerStore.setName = "Dashboard";
-        return (
-            <div>
-                <Navigation>
-                    <EnhancedTable />
-                </Navigation>
-            </div>
-        );
+  private getQuery(search: string): string {
+    if (search) {
+      return `${search.includes("@") ? "email" : "username"}='${search}'`;
     }
+    return "";
+  }
+
+  public render() {
+    StoreHolder.drawerStore.setName = "Dashboard";
+    return (
+      <div>
+        <Navigation>
+          <Table
+            title="Users"
+            dataFetcher={(query: Query) => {
+              return ServiceHolder.userService
+                .getUsers(query.page+1, query.rowsPerPage, this.getQuery(query.search))
+                .then((response: {total: number, data: User[]}) => {
+                  return Promise.resolve({ count: response.total, list: response.data });
+                });
+            }}
+            options={{
+              search: true,
+              pagination: true,
+              refresh: 10000,
+              sortingMode: "single",
+              rowsPerPageOptions: [5, 25, 50],
+            }}
+            columns={[
+              {
+                field: "id",
+                title: "ID",
+              },
+              {
+                field: "username",
+                title: "Username",
+              },
+              {
+                field: "email",
+                title: "E-Mail",
+              },
+            ]}
+          />
+        </Navigation>
+      </div>
+    );
+  }
 }
 
 export default withStyles(styles)(UsersPage);

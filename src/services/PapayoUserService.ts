@@ -7,7 +7,7 @@ import { history } from "../helpers/Helpers";
 import { User } from "../dto/User";
 
 export class PapayoUserService implements UserService {
-  login(name: string, password: string): void {
+  login(name: string, password: string, query?: string): void {
     Axios.post(BASE_URL + "/api/user/login", {
       email: name,
       password: password,
@@ -36,11 +36,11 @@ export class PapayoUserService implements UserService {
     AlertService.create("success", "You've been logged out!");
   }
 
-  async getUsers(page: number, pageSize: number): Promise<User[]> {
-    let users: User[] = [];
+  async getUsers(page: number, pageSize: number, query?: string): Promise<{ total: number; data: User[] }> {
+    let users: { total: number; data: User[] } = {total: 0, data: []};
 
-    await Axios.get<User[]>(
-      BASE_URL + `/api/user?page=${page}&pageSize=${pageSize}`
+    await Axios.get<{ total: number; data: User[] }>(
+      BASE_URL + `/api/user?${query ? "query=" + query + "&" : ""}page=${page}&pageSize=${pageSize}`
     )
       .then((response) => {
         users = response.data;
