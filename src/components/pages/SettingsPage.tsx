@@ -1,22 +1,25 @@
-import React from "react";
-import Navigation from "./Navigation";
 import {
-  WithStyles,
-  Theme,
-  withStyles,
   createStyles,
-  Typography,
-  Grid,
+
+  Grid, Theme,
+
+
+  Typography, WithStyles,
+
+  withStyles
 } from "@material-ui/core";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { CirclePicker, ColorResult } from "react-color";
-
-import SettingsStore from "../store/SettingsStore";
 import { observer } from "mobx-react";
-import { StoreHolder } from "../store/StoreHolder";
+import React from "react";
+import { CirclePicker, ColorResult } from "react-color";
+import { drawerStore } from "../../store/DrawerStore";
+import SettingsStore from "../../store/SettingsStore";
+import { themeStore } from "../../store/ThemeStore";
+import Navigation from "../Navigation";
+
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -44,11 +47,11 @@ class SettingsPage extends React.Component<Props> {
   private settingsStore: SettingsStore = new SettingsStore();
 
   componentDidMount() {
-    StoreHolder.drawerStore.setName = "Settings";
+    drawerStore.name = "Settings";
   }
 
   handleColorChange = (color: ColorResult) => {
-    StoreHolder.themeStore.setColor = color.hex;
+    themeStore.color = color.hex;
     console.log(color.hex);
   };
 

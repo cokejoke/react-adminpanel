@@ -1,11 +1,11 @@
-import { StoreHolder } from "../store/StoreHolder";
+import { alertStore, alertType } from "../store/AlertStore";
 
 export class AlertService {
 
-    public static create(type: "success" | "info" | "warning" | "error", message: string) {
-        StoreHolder.alertStore.setType = type;
-        StoreHolder.alertStore.setMessage = message;
-        StoreHolder.alertStore.setOpen = true;
+    public static create(type: alertType, message: string) {
+        alertStore.type = type;
+        alertStore.message = message;
+        alertStore.open = true;
     }
 
 }

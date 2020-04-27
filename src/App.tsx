@@ -1,25 +1,25 @@
-import React from "react";
-import {} from "mobx";
-import { observer } from "mobx-react";
 import {
-  MuiThemeProvider,
-  createMuiTheme,
+  createMuiTheme, MuiThemeProvider,
+
   Theme,
-  ThemeOptions,
+  ThemeOptions
 } from "@material-ui/core";
-import {} from "axios";
+import { } from "axios";
+import { } from "mobx";
+import { observer } from "mobx-react";
+import React from "react";
+import { Redirect, Route, Router, Switch } from "react-router-dom";
 import "./App.css";
-import { Router, Route, Switch, Redirect } from "react-router-dom";
-import { history } from "./helpers/Helpers";
 import CustomAlert from "./components/CustomAlert";
-import { StoreHolder } from "./store/StoreHolder";
 import {
-  PrivateRoute,
-  SettingsPage,
   DashboardPage,
   LoginPage,
-  UsersPage,
-} from "./components";
+  SettingsPage,
+  UsersPage
+} from "./components/pages";
+import PrivateRoute from "./components/PrivateRoute";
+import { history } from "./helpers/Helpers";
+import { themeStore } from "./store/ThemeStore";
 
 @observer
 class App extends React.Component {
@@ -40,12 +40,12 @@ class App extends React.Component {
     let theme: ThemeOptions = {
       palette: {
         primary: {
-          main: StoreHolder.themeStore.getColor,
+          main: themeStore.color,
         },
         secondary: {
-          main: StoreHolder.themeStore.getColor,
+          main: themeStore.color,
         },
-        type: StoreHolder.themeStore.getType,
+        type: themeStore.type,
       },
     };
     let muiTheme: Theme = createMuiTheme(theme);

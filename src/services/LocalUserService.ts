@@ -1,13 +1,11 @@
-import { UserService } from "./UserService";
-import Axios from "axios";
-import { BASE_URL } from "./ServiceHolder";
 import { User } from "../dto/User";
 import { history } from "../helpers/Helpers";
 import { AlertService } from "./AlertService";
+import { UserService } from "./UserService";
 
 export class LocalUserService implements UserService {
     async getUsers(page: number, pageSize: number, query?: string): Promise<{ total: number; data: User[] }> {
-        throw new Error("Method not implemented.");
+        return Promise.resolve({ total: 0, data: [] });
     }
 
     login(name: string, password: string): void {
@@ -29,7 +27,9 @@ export class LocalUserService implements UserService {
         throw new Error("Method not implemented.");
     }
     logout(): void {
-        throw new Error("Method not implemented.");
+        localStorage.removeItem("user");
+        history.push("/login");
+        AlertService.create("success", "You've been logged out!");
     }
 
 }

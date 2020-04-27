@@ -1,36 +1,36 @@
-import React from "react";
-import Drawer from "@material-ui/core/Drawer";
+import {
+  createStyles,
+  Grid,
+  Theme,
+  WithStyles,
+  withStyles
+} from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
+import Drawer from "@material-ui/core/Drawer";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import LightIcon from "@material-ui/icons/WbSunny";
-import DarkIcon from "@material-ui/icons/NightsStay";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import SettingIcon from "@material-ui/icons/Settings";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import DashboardIcon from "@material-ui/icons/Dashboard";
-import UsersIcon from "@material-ui/icons/Group";
 import LogOutIcon from "@material-ui/icons/ExitToApp";
+import UsersIcon from "@material-ui/icons/Group";
+import MenuIcon from "@material-ui/icons/Menu";
+import DarkIcon from "@material-ui/icons/NightsStay";
+import SettingIcon from "@material-ui/icons/Settings";
+import LightIcon from "@material-ui/icons/WbSunny";
 import clsx from "clsx";
-import {
-  WithStyles,
-  withStyles,
-  Theme,
-  createStyles,
-  Grid,
-} from "@material-ui/core";
 import { observer } from "mobx-react";
-import { StoreHolder } from "../store/StoreHolder";
+import React from "react";
 import { history } from "../helpers/Helpers";
-import { ThemeType } from "../store/ThemeStore";
 import { ServiceHolder } from "../services/ServiceHolder";
+import { drawerStore } from "../store/DrawerStore";
+import { themeStore, ThemeType } from "../store/ThemeStore";
 
 export const drawerWidth = 240;
 
@@ -112,22 +112,21 @@ export type Props = WithStyles;
 @observer
 class Navigation extends React.Component<Props> {
   private handleDrawerOpen(): void {
-    StoreHolder.drawerStore.setOpen = true;
+    drawerStore.open = true;
   }
 
   private handleDrawerClose(): void {
-    StoreHolder.drawerStore.setOpen = false;
+    drawerStore.open = false;
   }
 
   private toggleTheme(): void {
-    let theme: ThemeType =
-      StoreHolder.themeStore.getType === "light" ? "dark" : "light";
+    let theme: ThemeType = themeStore.type === "light" ? "dark" : "light";
     localStorage.setItem("theme", theme);
-    StoreHolder.themeStore.setType = theme;
+    themeStore.type = theme;
   }
 
-  private isOpen(): boolean {
-    return StoreHolder.drawerStore.isOpen;
+  private open(): boolean {
+    return drawerStore.open;
   }
 
   render() {
@@ -137,7 +136,7 @@ class Navigation extends React.Component<Props> {
         <AppBar
           position="fixed"
           className={clsx(this.props.classes.appBar, {
-            [this.props.classes.appBarShift]: this.isOpen(),
+            [this.props.classes.appBarShift]: this.open(),
           })}
         >
           <Toolbar>
@@ -147,20 +146,20 @@ class Navigation extends React.Component<Props> {
               onClick={this.handleDrawerOpen}
               edge="start"
               className={clsx(this.props.classes.menuButton, {
-                [this.props.classes.hide]: this.isOpen(),
+                [this.props.classes.hide]: this.open(),
               })}
             >
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap>
-              {StoreHolder.drawerStore.getName}
+              {drawerStore.name}
             </Typography>
             <IconButton
               color="inherit"
               onClick={this.toggleTheme}
               className={this.props.classes.themeToggle}
             >
-              {StoreHolder.themeStore.getType === "light" &&
+              {themeStore.type === "light" &&
               localStorage.getItem("theme") === "light" ? (
                 <LightIcon />
               ) : (
@@ -172,13 +171,13 @@ class Navigation extends React.Component<Props> {
         <Drawer
           variant="permanent"
           className={clsx(this.props.classes.drawer, {
-            [this.props.classes.drawerOpen]: this.isOpen(),
-            [this.props.classes.drawerClose]: !this.isOpen(),
+            [this.props.classes.drawerOpen]: this.open(),
+            [this.props.classes.drawerClose]: !this.open(),
           })}
           classes={{
             paper: clsx({
-              [this.props.classes.drawerOpen]: this.isOpen(),
-              [this.props.classes.drawerClose]: !this.isOpen(),
+              [this.props.classes.drawerOpen]: this.open(),
+              [this.props.classes.drawerClose]: !this.open(),
             }),
           }}
         >
@@ -256,7 +255,7 @@ class Navigation extends React.Component<Props> {
   }
 
   private logOut(): void {
-    StoreHolder.drawerStore.setOpen = false;
+    drawerStore.open = false;
     ServiceHolder.userService.logout();
   }
 }

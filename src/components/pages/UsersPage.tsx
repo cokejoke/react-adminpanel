@@ -4,12 +4,12 @@ import {
   withStyles
 } from "@material-ui/core";
 import React from "react";
-import Table from "../@rootsher/material-table/src/Table";
-import { Query } from "../@rootsher/material-table/src/types";
-import { User } from "../dto/User";
-import { ServiceHolder } from "../services/ServiceHolder";
-import { StoreHolder } from "../store/StoreHolder";
-import Navigation from "./Navigation";
+import Table from "../../@rootsher/material-table/src/Table";
+import { Query } from "../../@rootsher/material-table/src/types";
+import { User } from "../../dto/User";
+import { ServiceHolder } from "../../services/ServiceHolder";
+import { drawerStore } from "../../store/DrawerStore";
+import Navigation from "../Navigation";
 
 export const styles = (theme: Theme) => createStyles({});
 
@@ -24,7 +24,7 @@ class UsersPage extends React.Component<Props> {
   }
 
   public render() {
-    StoreHolder.drawerStore.setName = "Dashboard";
+    drawerStore.name = "Users";
     return (
       <div>
         <Navigation>

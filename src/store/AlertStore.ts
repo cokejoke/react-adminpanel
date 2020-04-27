@@ -1,21 +1,34 @@
-import { computed, observable } from "mobx";
-import { AlertProps } from "@material-ui/lab";
+import { observable } from "mobx";
+
+export type alertType = "success" | "info" | "warning" | "error" | undefined;
 
 export default class AlertStore {
+  @observable
+  private _open: boolean = false;
+  get open(): boolean {
+    return this._open;
+  }
+  set open(open: boolean) {
+    this._open = open;
+  }
 
   @observable
-  private open: boolean = false;
-  @computed get isOpen(): boolean { return this.open; }
-  set setOpen(open: boolean) { this.open = open; }
+  private _type: alertType = undefined;
+  get type() {
+    return this._type;
+  }
+  set type(type: alertType) {
+    this._type = type;
+  }
 
   @observable
-  private type: "success" | "info" | "warning" | "error" | undefined = undefined;
-  @computed get getType(): "success" | "info" | "warning" | "error" | undefined { return this.type; }
-  set setType(type: "success" | "info" | "warning" | "error" | undefined) { this.type = type; }
-
-  @observable
-  private message: string = "";
-  @computed get getMessage(): string { return this.message; }
-  set setMessage(message: string) { this.message = message; }
-
+  private _message: string = "";
+  get message() {
+    return this._message;
+  }
+  set message(message: string) {
+    this._message = message;
+  }
 }
+
+export const alertStore: AlertStore = new AlertStore();

@@ -1,15 +1,14 @@
-import React from "react";
-import Navigation from "./Navigation";
-import { StoreHolder } from "../store/StoreHolder";
 import {
-  WithStyles,
-  Theme,
-  withStyles,
   createStyles,
-  Typography,
-  Grid,
+
+  Grid, Theme, WithStyles,
+
+  withStyles
 } from "@material-ui/core";
-import UsersWidget from "./widgets/UsersWidget";
+import React from "react";
+import { drawerStore } from "../../store/DrawerStore";
+import Navigation from "../Navigation";
+import UsersWidget from "../widgets/UsersWidget";
 
 export const styles = (theme: Theme) => createStyles({});
 
@@ -17,7 +16,7 @@ export type Props = WithStyles;
 
 class DashboardPage extends React.Component<Props> {
   public render() {
-    StoreHolder.drawerStore.setName = "Dashboard";
+    drawerStore.name = "Dashboard";
     return (
       <Navigation>
         <Grid container direction="row">

@@ -3,13 +3,15 @@ import { computed, observable } from "mobx";
 export default class DrawerStore {
 
   @observable
-  private open: boolean = false;
-  @computed get isOpen(): boolean { return this.open; }
-  set setOpen(open: boolean) { this.open = open; }
+  private _open: boolean = false;
+  get open(): boolean { return this._open; }
+  set open(open: boolean) { this._open = open; }
 
   @observable
-  private name: string = "";
-  @computed get getName(): string { return this.name; }
-  set setName(name: string) { this.name = name; }
+  private _name: string = "";
+  get name(): string { return this._name; }
+  set name(name: string) { this._name = name; }
   
 }
+
+export const drawerStore: DrawerStore = new DrawerStore();

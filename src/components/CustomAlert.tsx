@@ -1,25 +1,21 @@
-import React from "react";
-import { Alert } from "@material-ui/lab";
 import { Snackbar } from "@material-ui/core";
-import AlertStore from "../store/AlertStore";
+import { Alert } from "@material-ui/lab";
 import { observer } from "mobx-react";
-import { StoreHolder } from "../store/StoreHolder";
+import React from "react";
+import { alertStore } from "../store/AlertStore";
 
 @observer
 export default class CustomAlert extends React.Component {
 
     private handleClose(event?: React.SyntheticEvent, reason?: string) {
-        /*if (reason === 'clickaway') {
-            return;
-        }*/
-        StoreHolder.alertStore.setOpen = false;
+        alertStore.open = false;
     }
 
     render() {
         return (
-            <Snackbar anchorOrigin={{vertical: "top", horizontal: "right"}} open={StoreHolder.alertStore.isOpen} autoHideDuration={4000} onClose={this.handleClose}>
-                <Alert variant="filled" severity={StoreHolder.alertStore.getType}>
-                    {StoreHolder.alertStore.getMessage}
+            <Snackbar anchorOrigin={{vertical: "top", horizontal: "right"}} open={alertStore.open} autoHideDuration={4000} onClose={this.handleClose}>
+                <Alert variant="filled" severity={alertStore.type}>
+                    {alertStore.message}
                 </Alert>
             </Snackbar>
         );

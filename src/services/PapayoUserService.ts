@@ -1,10 +1,9 @@
-import { UserService } from "./UserService";
-import { BASE_URL } from "./ServiceHolder";
-import { AlertService } from "./AlertService";
 import Axios from "axios";
-import { AxiosResponse } from "axios";
-import { history } from "../helpers/Helpers";
 import { User } from "../dto/User";
+import { history } from "../helpers/Helpers";
+import { AlertService } from "./AlertService";
+import { BASE_URL } from "./ServiceHolder";
+import { UserService } from "./UserService";
 
 export class PapayoUserService implements UserService {
   login(name: string, password: string, query?: string): void {

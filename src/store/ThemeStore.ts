@@ -24,19 +24,21 @@ export default class ThemeStore {
     }
   }
 
-  get getType(): ThemeType {
+  get type(): ThemeType {
     return this.theme.type;
   }
 
-  set setType(type: ThemeType) {
+  set type(type: ThemeType) {
     this.theme.type = type;
   }
 
-  get getColor(): string {
+  get color(): string {
     return this.theme.color;
   }
 
-  set setColor(color: string) {
+  set color(color: string) {
     this.theme.color = color;
   }
 }
+
+export const themeStore: ThemeStore = new ThemeStore();
