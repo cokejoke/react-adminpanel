@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "./logo.svg";
 import {} from "mobx";
 import { observer } from "mobx-react";
 import {
@@ -14,7 +13,6 @@ import { Router, Route, Switch, Redirect } from "react-router-dom";
 import { history } from "./helpers/Helpers";
 import CustomAlert from "./components/CustomAlert";
 import { StoreHolder } from "./store/StoreHolder";
-import { ThemeType } from "./store/ThemeStore";
 import {
   PrivateRoute,
   SettingsPage,
@@ -22,20 +20,11 @@ import {
   LoginPage,
   UsersPage,
 } from "./components";
-import { indigo, deepPurple } from "@material-ui/core/colors";
 
 @observer
 class App extends React.Component {
   public App() {
     history.listen(() => {});
-  }
-
-  private getLocalTheme(): ThemeType {
-    if (localStorage.getItem("theme")) {
-      if (localStorage.getItem("theme") === "light") return "light";
-      else return "dark";
-    }
-    return "light";
   }
 
   componentDidMount() {
@@ -48,16 +37,15 @@ class App extends React.Component {
   }
 
   render() {
-    let localTheme: ThemeType = this.getLocalTheme();
-    let themeType: ThemeType =
-      StoreHolder.themeStore.getType !== localTheme
-        ? localTheme
-        : StoreHolder.themeStore.getType;
     let theme: ThemeOptions = {
       palette: {
-        primary: deepPurple,
-        secondary: deepPurple,
-        type: themeType,
+        primary: {
+          main: StoreHolder.themeStore.getColor,
+        },
+        secondary: {
+          main: StoreHolder.themeStore.getColor,
+        },
+        type: StoreHolder.themeStore.getType,
       },
     };
     let muiTheme: Theme = createMuiTheme(theme);
