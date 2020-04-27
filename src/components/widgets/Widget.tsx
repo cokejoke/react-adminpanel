@@ -1,5 +1,5 @@
+import { createStyles, Paper, Theme, WithStyles, withStyles } from "@material-ui/core";
 import React from "react";
-import { WithStyles, Theme, withStyles, createStyles, Typography, Grid, Paper } from "@material-ui/core";
 import { history } from "../../helpers/Helpers";
 
 export const styles = (theme: Theme) =>

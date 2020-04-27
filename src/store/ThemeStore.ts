@@ -1,5 +1,5 @@
-import { computed, observable } from "mobx";
 import { deepPurple } from "@material-ui/core/colors";
+import { observable } from "mobx";
 
 export type ThemeType = "dark" | "light";
 
@@ -29,6 +29,7 @@ export default class ThemeStore {
   }
 
   set type(type: ThemeType) {
+    localStorage.setItem("theme", type);
     this.theme.type = type;
   }
 
@@ -37,6 +38,7 @@ export default class ThemeStore {
   }
 
   set color(color: string) {
+    localStorage.setItem("color", color);
     this.theme.color = color;
   }
 }

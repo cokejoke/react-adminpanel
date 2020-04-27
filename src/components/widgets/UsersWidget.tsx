@@ -1,19 +1,18 @@
-import React from "react";
 import {
-  WithStyles,
-  Theme,
-  withStyles,
   createStyles,
-  Typography,
-  Grid,
+
+  Grid, Theme, WithStyles,
+
+  withStyles
 } from "@material-ui/core";
 import UsersIcon from "@material-ui/icons/Group";
-import Widget from "./Widget";
-import WidgetHeader from "./WidgetHeader";
-import { ServiceHolder } from "../../services/ServiceHolder";
-import { User } from "../../dto/User";
 import { observable } from "mobx";
 import { observer } from "mobx-react";
+import React from "react";
+import { User } from "../../dto/User";
+import { ServiceHolder } from "../../services/ServiceHolder";
+import Widget from "./Widget";
+import WidgetHeader from "./WidgetHeader";
 
 export const styles = (theme: Theme) => createStyles({});
 

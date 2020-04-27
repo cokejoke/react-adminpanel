@@ -1,13 +1,11 @@
-import React from "react";
 import {
-  WithStyles,
-  Theme,
-  withStyles,
   createStyles,
-  Typography,
-  Grid,
-  Paper,
+
+  Grid, Theme, WithStyles,
+
+  withStyles
 } from "@material-ui/core";
+import React from "react";
 
 export const styles = (theme: Theme) =>
   createStyles({
