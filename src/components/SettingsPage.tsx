@@ -6,6 +6,7 @@ import {
   withStyles,
   createStyles,
   Typography,
+  Grid,
 } from "@material-ui/core";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
@@ -31,6 +32,9 @@ const styles = (theme: Theme) =>
       flexGrow: 1,
       padding: theme.spacing(3),
       margin: "0 45px",
+    },
+    colorTitle: {
+      marginBottom: theme.spacing(2),
     },
   });
 
@@ -72,8 +76,23 @@ class SettingsPage extends React.Component<Props> {
                 <Typography>Theme Settings</Typography>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
-                <Typography>Change Color</Typography>
-                <CirclePicker onChangeComplete={this.handleColorChange} />
+                <Grid
+                  container
+                  direction="column"
+                  justify="flex-start"
+                  alignItems="flex-start"
+                >
+                  <Grid
+                    className={this.props.classes.colorTitle}
+                    container
+                    item
+                  >
+                    <Typography>Change Color</Typography>
+                  </Grid>
+                  <Grid container item>
+                    <CirclePicker onChangeComplete={this.handleColorChange} />
+                  </Grid>
+                </Grid>
               </ExpansionPanelDetails>
             </ExpansionPanel>
           </main>
