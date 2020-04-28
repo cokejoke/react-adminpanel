@@ -24,6 +24,9 @@ export class PapayoUserService implements UserService {
             "Invalid username, e-mail adress or password."
           );
         } catch (error) {
+          if (localStorage.getItem("user")) {
+            this.logout();
+          }
           AlertService.create("error", "Backend Offline");
           console.log(error);
         }
@@ -60,6 +63,9 @@ export class PapayoUserService implements UserService {
         try {
           console.log(error.response.data);
         } catch (error) {
+          if (localStorage.getItem("user")) {
+            this.logout();
+          }
           AlertService.create("error", "Backend Offline");
           console.log(error);
         }
