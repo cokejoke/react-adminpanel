@@ -17,11 +17,16 @@ export class PapayoUserService implements UserService {
         AlertService.create("success", "Successfully logged in!");
       })
       .catch((error) => {
-        console.log(error.response.data);
-        AlertService.create(
-          "error",
-          "Invalid username, e-mail adress or password."
-        );
+        try {
+          console.log(error.response.data);
+          AlertService.create(
+            "error",
+            "Invalid username, e-mail adress or password."
+          );
+        } catch (error) {
+          AlertService.create("error", "Backend Offline");
+          console.log(error);
+        }
       });
   }
 
