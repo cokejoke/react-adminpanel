@@ -35,17 +35,29 @@ export class PapayoUserService implements UserService {
     AlertService.create("success", "You've been logged out!");
   }
 
-  async getUsers(page: number, pageSize: number, query?: string): Promise<{ total: number; data: User[] }> {
-    let users: { total: number; data: User[] } = {total: 0, data: []};
+  async getUsers(
+    page: number,
+    pageSize: number,
+    query?: string
+  ): Promise<{ total: number; data: User[] }> {
+    let users: { total: number; data: User[] } = { total: 0, data: [] };
 
     await Axios.get<{ total: number; data: User[] }>(
-      BASE_URL + `/api/user?${query ? "query=" + query + "&" : ""}page=${page}&pageSize=${pageSize}`
+      BASE_URL +
+        `/api/user?${
+          query ? "query=" + query + "&" : ""
+        }page=${page}&pageSize=${pageSize}`
     )
       .then((response) => {
         users = response.data;
       })
       .catch((error) => {
-        console.log(error.response.data);
+        try {
+          console.log(error.response.data);
+        } catch (error) {
+          AlertService.create("error", "Backend Offline");
+          console.log(error);
+        }
       });
 
     return Promise.resolve(users);
