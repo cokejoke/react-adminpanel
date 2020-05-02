@@ -37,4 +37,24 @@ export default class LoginStore {
       throw e;
     }
   }
+
+  public async register(): Promise<void> {
+    //this.loading = true;
+    try {
+      if (!this.name) {
+        AlertService.create("error", "Please provide an e-mail address or username.");
+        return;
+      }
+      if (!this.password) {
+        AlertService.create("error", "Please provide a password.");
+        return;
+      }
+      await ServiceHolder.userService.register(this.name, this.password);
+      await ServiceHolder.userService.login(this.name, this.password);
+      this.loading = false;
+    } catch (e) {
+      this.loading = false;
+      throw e;
+    }
+  }
 }

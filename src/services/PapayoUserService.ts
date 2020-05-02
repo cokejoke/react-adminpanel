@@ -33,8 +33,32 @@ export class PapayoUserService implements UserService {
       });
   }
 
-  register(): void {
-    throw new Error("Method not implemented.");
+  register(username: string, email: string, password: string, query?: string): void {
+    Axios.post(BASE_URL + "/api/user/register", {
+      username: username,
+      email: email,
+      password: password,
+    })
+      .then((response) => {
+        localStorage.setItem("user", response.data);
+        history.push("/");
+        AlertService.create("success", "Successfully logged in!");
+      })
+      .catch((error) => {
+        try {
+          console.log(error.response.data);
+          AlertService.create(
+            "error",
+            "Invalid username, e-mail adress or password."
+          );
+        } catch (error) {
+          if (localStorage.getItem("user")) {
+            this.logout();
+          }
+          AlertService.create("error", "Backend Offline");
+          console.log(error);
+        }
+      });
   }
 
   logout(): void {
