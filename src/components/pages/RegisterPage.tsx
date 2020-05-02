@@ -41,7 +41,7 @@ const styles = (theme: Theme) =>
 type Props = WithStyles;
 
 @observer
-class LoginPage extends React.Component<Props> {
+class RegisterPage extends React.Component<Props> {
   private store = new AuthStore();
 
   public render() {
@@ -57,7 +57,7 @@ class LoginPage extends React.Component<Props> {
             >
               <Grid item xl={6} sm={8} xs={6}>
                 <Typography className={this.props.classes.heading} variant="h3">
-                  Login
+                  Register
                 </Typography>
                 <form
                   className={this.props.classes.form}
@@ -67,7 +67,17 @@ class LoginPage extends React.Component<Props> {
                     id="outlined-basic"
                     fullWidth={true}
                     type="text"
-                    label="Username or E-Mail"
+                    label="Username"
+                    variant="outlined"
+                    onChange={(e) => this.onUserNameChanged(e.target.value)}
+                  />
+                  <br />
+                  <br />
+                  <TextField
+                    id="outlined-basic"
+                    fullWidth={true}
+                    type="text"
+                    label="E-Mail"
                     variant="outlined"
                     onChange={(e) => this.onNameChanged(e.target.value)}
                   />
@@ -79,6 +89,7 @@ class LoginPage extends React.Component<Props> {
                     type="password"
                     label="Password"
                     variant="outlined"
+                    helperText="An uppercase letter A lowercase letter A number A special character '#?!@$%^&*-'"
                     onChange={(e) => this.onPasswordChanged(e.target.value)}
                   />
                   <br />
@@ -112,10 +123,14 @@ class LoginPage extends React.Component<Props> {
   @autobind
   private async signIn(): Promise<void> {
     try {
-      await this.store.login();
+      await this.store.register();
     } catch (e) {
       alert(e.message);
     }
+  }
+
+  private onUserNameChanged(username: string): void {
+    this.store.username = username;
   }
 
   private onNameChanged(name: string): void {
@@ -127,4 +142,4 @@ class LoginPage extends React.Component<Props> {
   }
 }
 
-export default withStyles(styles)(LoginPage);
+export default withStyles(styles)(RegisterPage);
