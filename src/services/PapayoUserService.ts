@@ -4,6 +4,8 @@ import { history } from "../helpers/Helpers";
 import { AlertService } from "./AlertService";
 import { BASE_URL } from "./ServiceHolder";
 import { UserService } from "./UserService";
+import { resolve } from "path";
+import { rejects } from "assert";
 
 export class PapayoUserService implements UserService {
   login(name: string, password: string, query?: string): void {
@@ -33,32 +35,42 @@ export class PapayoUserService implements UserService {
       });
   }
 
-  register(username: string, email: string, password: string, query?: string): void {
-    Axios.post(BASE_URL + "/api/user/register", {
-      username: username,
-      email: email,
-      password: password,
-    })
-      .then((response) => {
-        localStorage.setItem("user", response.data);
-        history.push("/");
-        AlertService.create("success", "Successfully logged in!");
+  register(
+    username: string,
+    email: string,
+    password: string,
+    query?: string
+  ): Promise<void> {
+    return new Promise((resolve, reject) => {
+      Axios.post(BASE_URL + "/api/user/register", {
+        username: username,
+        email: email,
+        password: password,
       })
-      .catch((error) => {
-        try {
-          console.log(error.response.data);
-          AlertService.create(
-            "error",
-            "Invalid username, e-mail adress or password."
-          );
-        } catch (error) {
-          if (localStorage.getItem("user")) {
-            this.logout();
+        .then((response) => {
+          localStorage.setItem("user", response.data);
+          history.push("/");
+          AlertService.create("success", "Successfully logged in!");
+          resolve();
+        })
+        .catch((error) => {
+          try {
+            console.log(error.response.data);
+            AlertService.create(
+              "error",
+              "Invalid username, e-mail adress or password."
+            );
+            reject();
+          } catch (error) {
+            if (localStorage.getItem("user")) {
+              this.logout();
+            }
+            AlertService.create("error", "Backend Offline");
+            reject();
+            console.log(error);
           }
-          AlertService.create("error", "Backend Offline");
-          console.log(error);
-        }
-      });
+        });
+    });
   }
 
   logout(): void {

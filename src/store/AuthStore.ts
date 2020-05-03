@@ -75,12 +75,11 @@ export default class AuthStore {
         AlertService.create("error", "Please provide a password.");
         return;
       }
-      await ServiceHolder.userService.register(
-        this.username,
-        this.name,
-        this.password
-      );
-      await ServiceHolder.userService.login(this.name, this.password);
+      await ServiceHolder.userService
+        .register(this.username, this.name, this.password)
+        .then(() => {
+          ServiceHolder.userService.login(this.name, this.password);
+        });
       this.loading = false;
     } catch (e) {
       this.loading = false;
@@ -88,4 +87,3 @@ export default class AuthStore {
     }
   }
 }
-
