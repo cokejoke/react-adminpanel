@@ -11,6 +11,7 @@ import {
   WithStyles,
   withStyles,
   Link,
+  Divider,
 } from "@material-ui/core";
 import autobind from "autobind-decorator";
 import { observable } from "mobx";
@@ -52,9 +53,12 @@ const styles = (theme: Theme) =>
       marginBottom: "40px",
       color: theme.palette.primary.main,
     },
-    links: {
-      marginTop: "8px",
-      marginBottom: "22px"
+    rememberme: {
+      padding: "10px 0",
+    },
+    loginDivider: {
+      margin: "20px",
+      marginTop: "30px",
     },
   });
 
@@ -102,18 +106,18 @@ class LoginPage extends React.Component<Props> {
                     variant="outlined"
                     onChange={(e) => this.onPasswordChanged(e.target.value)}
                   />
-                  <Grid className={this.props.classes.links} container justify="center">
-                    <Grid item xs>
-                        <Link href="/register" underline="none">
-                          Sign up now
-                        </Link>
-                    </Grid>
-                    <Grid item>
-                        <Link href="/begin_password_reset" underline="none">
-                          Forgot your password?
-                        </Link>
-                    </Grid>
-                  </Grid>
+                  <FormControlLabel
+                    className={this.props.classes.rememberme}
+                    control={
+                      <Checkbox
+                        checked={this.checkboxStore.checked}
+                        onChange={this.handleCheckboxChange}
+                        name="remember-me"
+                        color="primary"
+                      />
+                    }
+                    label="Remember me"
+                  />
                   <Grid container>
                     <Grid item xs>
                       <Button type="submit" variant="contained" color="primary">
@@ -121,17 +125,20 @@ class LoginPage extends React.Component<Props> {
                       </Button>
                     </Grid>
                     <Grid item>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={this.checkboxStore.checked}
-                            onChange={this.handleCheckboxChange}
-                            name="remember-me"
-                            color="primary"
-                          />
-                        }
-                        label="Remember me"
-                      />
+                      <Link href="/begin_password_reset" underline="none">
+                        Forgot your password?
+                      </Link>
+                    </Grid>
+                  </Grid>
+                  <Divider
+                    className={this.props.classes.loginDivider}
+                    variant="middle"
+                  />
+                  <Grid container justify="center">
+                    <Grid item>
+                      <Link href="/register" underline="none">
+                        Don't have an account? Sign Up
+                      </Link>
                     </Grid>
                   </Grid>
                 </form>
