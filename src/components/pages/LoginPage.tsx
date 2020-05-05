@@ -1,7 +1,8 @@
 import {
   Button,
-  CircularProgress,
+  Checkbox,
   createStyles,
+  FormControlLabel,
   Grid,
   Hidden,
   TextField,
@@ -9,11 +10,26 @@ import {
   Typography,
   WithStyles,
   withStyles,
+  Link,
 } from "@material-ui/core";
 import autobind from "autobind-decorator";
+import { observable } from "mobx";
 import { observer } from "mobx-react";
 import * as React from "react";
 import LoginStore from "../../store/LoginStore";
+
+class CheckboxStore {
+  @observable
+  private _checked: boolean = false;
+
+  get checked(): boolean {
+    return this._checked;
+  }
+
+  set checked(checked: boolean) {
+    this._checked = checked;
+  }
+}
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -26,7 +42,8 @@ const styles = (theme: Theme) =>
       backgroundPosition: "center",
       backgroundRepeat: "no-repeat",
       backgroundAttachment: "fixed",
-      backgroundImage: "url(" + window.location.origin + "/resources/login.jpg)",
+      backgroundImage:
+        "url(" + window.location.origin + "/resources/login.jpg)",
     },
     form: {
       width: "100%",
@@ -35,6 +52,10 @@ const styles = (theme: Theme) =>
       marginBottom: "40px",
       color: theme.palette.primary.main,
     },
+    links: {
+      marginTop: "8px",
+      marginBottom: "22px"
+    },
   });
 
 type Props = WithStyles;
@@ -42,6 +63,7 @@ type Props = WithStyles;
 @observer
 class LoginPage extends React.Component<Props> {
   private store = new LoginStore();
+  private checkboxStore = new CheckboxStore();
 
   public render() {
     return (
@@ -80,12 +102,38 @@ class LoginPage extends React.Component<Props> {
                     variant="outlined"
                     onChange={(e) => this.onPasswordChanged(e.target.value)}
                   />
-                  <br />
-                  <br />
-                  <Button type="submit" variant="contained" color="primary">
-                    Sign in
-                  </Button>
-                  {this.store.loading && <CircularProgress size={24} />}
+                  <Grid className={this.props.classes.links} container justify="center">
+                    <Grid item xs>
+                        <Link href="/register" underline="none">
+                          Sign up now
+                        </Link>
+                    </Grid>
+                    <Grid item>
+                        <Link href="/begin_password_reset" underline="none">
+                          Forgot your password?
+                        </Link>
+                    </Grid>
+                  </Grid>
+                  <Grid container>
+                    <Grid item xs>
+                      <Button type="submit" variant="contained" color="primary">
+                        Sign in
+                      </Button>
+                    </Grid>
+                    <Grid item>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={this.checkboxStore.checked}
+                            onChange={this.handleCheckboxChange}
+                            name="remember-me"
+                            color="primary"
+                          />
+                        }
+                        label="Remember me"
+                      />
+                    </Grid>
+                  </Grid>
                 </form>
               </Grid>
             </Grid>
@@ -123,6 +171,11 @@ class LoginPage extends React.Component<Props> {
 
   private onPasswordChanged(password: string): void {
     this.store.password = password;
+  }
+
+  @autobind
+  private handleCheckboxChange(): void {
+    this.checkboxStore.checked = !this.checkboxStore.checked;
   }
 }
 
