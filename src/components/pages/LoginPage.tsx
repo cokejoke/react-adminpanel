@@ -89,7 +89,6 @@ class LoginPage extends React.Component<Props> {
                   onSubmit={(e) => this.handleSubmit(e)}
                 >
                   <TextField
-                    id="outlined-basic"
                     fullWidth={true}
                     type="text"
                     label="Username or E-Mail"
@@ -99,7 +98,6 @@ class LoginPage extends React.Component<Props> {
                   <br />
                   <br />
                   <TextField
-                    id="outlined-basic"
                     fullWidth={true}
                     type="password"
                     label="Password"
