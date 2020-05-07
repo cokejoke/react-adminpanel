@@ -1,11 +1,11 @@
 import {
-  createMuiTheme, MuiThemeProvider,
-
+  createMuiTheme,
+  MuiThemeProvider,
   Theme,
-  ThemeOptions
+  ThemeOptions,
 } from "@material-ui/core";
-import { } from "axios";
-import { } from "mobx";
+import {} from "axios";
+import {} from "mobx";
 import { observer } from "mobx-react";
 import React from "react";
 import { Redirect, Route, Router, Switch } from "react-router-dom";
@@ -15,11 +15,12 @@ import {
   DashboardPage,
   LoginPage,
   SettingsPage,
-  UsersPage
+  UsersPage,
 } from "./components/pages";
 import PrivateRoute from "./components/PrivateRoute";
 import { history } from "./helpers/Helpers";
 import { themeStore } from "./store/ThemeStore";
+import RegisterPage from "./components/pages/RegisterPage";
 
 @observer
 class App extends React.Component {
@@ -58,6 +59,7 @@ class App extends React.Component {
             <PrivateRoute exact path="/dashboard" component={DashboardPage} />
             <PrivateRoute exact path="/users" component={UsersPage} />
             <Route path="/login" component={LoginPage} />
+            <Route path="/register" component={RegisterPage} />
             <Redirect from="*" to="/dashboard" />
           </Switch>
         </Router>
