@@ -64,7 +64,6 @@ class RegisterPage extends React.Component<Props> {
                   onSubmit={(e) => this.handleSubmit(e)}
                 >
                   <TextField
-                    id="outlined-basic"
                     fullWidth={true}
                     type="text"
                     label="Username"
@@ -74,7 +73,6 @@ class RegisterPage extends React.Component<Props> {
                   <br />
                   <br />
                   <TextField
-                    id="outlined-basic"
                     fullWidth={true}
                     type="text"
                     label="E-Mail"
@@ -84,7 +82,6 @@ class RegisterPage extends React.Component<Props> {
                   <br />
                   <br />
                   <TextField
-                    id="outlined-basic"
                     fullWidth={true}
                     type="password"
                     label="Password"
