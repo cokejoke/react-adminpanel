@@ -1,7 +1,8 @@
 import {
   Button,
-  CircularProgress,
+  Checkbox,
   createStyles,
+  FormControlLabel,
   Grid,
   Hidden,
   TextField,
@@ -9,11 +10,27 @@ import {
   Typography,
   WithStyles,
   withStyles,
+  Link,
+  Divider,
 } from "@material-ui/core";
 import autobind from "autobind-decorator";
+import { observable } from "mobx";
 import { observer } from "mobx-react";
 import * as React from "react";
 import AuthStore from "../../store/AuthStore";
+
+class CheckboxStore {
+  @observable
+  private _checked: boolean = false;
+
+  get checked(): boolean {
+    return this._checked;
+  }
+
+  set checked(checked: boolean) {
+    this._checked = checked;
+  }
+}
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -36,6 +53,13 @@ const styles = (theme: Theme) =>
       marginBottom: "40px",
       color: theme.palette.primary.main,
     },
+    rememberme: {
+      padding: "10px 0",
+    },
+    loginDivider: {
+      margin: "20px",
+      marginTop: "30px",
+    },
   });
 
 type Props = WithStyles;
@@ -43,6 +67,7 @@ type Props = WithStyles;
 @observer
 class LoginPage extends React.Component<Props> {
   private store = new AuthStore();
+  private checkboxStore = new CheckboxStore();
 
   public render() {
     return (
@@ -64,7 +89,6 @@ class LoginPage extends React.Component<Props> {
                   onSubmit={(e) => this.handleSubmit(e)}
                 >
                   <TextField
-                    id="outlined-basic"
                     fullWidth={true}
                     type="text"
                     label="Username or E-Mail"
@@ -74,19 +98,47 @@ class LoginPage extends React.Component<Props> {
                   <br />
                   <br />
                   <TextField
-                    id="outlined-basic"
                     fullWidth={true}
                     type="password"
                     label="Password"
                     variant="outlined"
                     onChange={(e) => this.onPasswordChanged(e.target.value)}
                   />
-                  <br />
-                  <br />
-                  <Button type="submit" variant="contained" color="primary">
-                    Sign in
-                  </Button>
-                  {this.store.loading && <CircularProgress size={24} />}
+                  <FormControlLabel
+                    className={this.props.classes.rememberme}
+                    control={
+                      <Checkbox
+                        checked={this.checkboxStore.checked}
+                        onChange={this.handleCheckboxChange}
+                        name="remember-me"
+                        color="primary"
+                      />
+                    }
+                    label="Remember me"
+                  />
+                  <Grid container>
+                    <Grid item xs>
+                      <Button type="submit" variant="contained" color="primary">
+                        Sign in
+                      </Button>
+                    </Grid>
+                    <Grid item>
+                      <Link href="/begin_password_reset" underline="none">
+                        Forgot your password?
+                      </Link>
+                    </Grid>
+                  </Grid>
+                  <Divider
+                    className={this.props.classes.loginDivider}
+                    variant="middle"
+                  />
+                  <Grid container justify="center">
+                    <Grid item>
+                      <Link href="/register" underline="none">
+                        Don't have an account? Sign Up
+                      </Link>
+                    </Grid>
+                  </Grid>
                 </form>
               </Grid>
             </Grid>
@@ -124,6 +176,11 @@ class LoginPage extends React.Component<Props> {
 
   private onPasswordChanged(password: string): void {
     this.store.password = password;
+  }
+
+  @autobind
+  private handleCheckboxChange(): void {
+    this.checkboxStore.checked = !this.checkboxStore.checked;
   }
 }
 
