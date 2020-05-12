@@ -3,7 +3,7 @@ import {
   Grid,
   Theme,
   WithStyles,
-  withStyles
+  withStyles,
 } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -160,9 +160,9 @@ class Navigation extends React.Component<Props> {
             >
               {themeStore.type === "light" &&
               localStorage.getItem("theme") === "light" ? (
-                <LightIcon />
-              ) : (
                 <DarkIcon />
+              ) : (
+                <LightIcon />
               )}
             </IconButton>
           </Toolbar>
